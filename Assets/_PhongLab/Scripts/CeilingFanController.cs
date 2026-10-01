@@ -11,9 +11,9 @@ public class CeilingFanController : MonoBehaviour
     [Header("Trục xoay")]
     public RotationAxis rotationAxis = RotationAxis.Y_Axis;
 
-    [Header("5 Cấp độ tốc độ (Mặc định đã tăng 50%)")]
+    [Header("6 Cấp độ tốc độ (0: Tắt, 1-5: Số quạt)")]
     [Tooltip("Bạn có thể tùy ý sửa số của từng nấc trực tiếp ngay trên Inspector")]
-    public float[] speedLevels = new float[] { 0f, 225f, 450f, 720f, 1050f };
+    public float[] speedLevels = new float[] { 0f, 225f, 450f, 720f, 1050f, 1350f };
 
     [Header("Hệ số nhân tốc độ tổng thể")]
     [Tooltip("Hệ số nhân giúp tăng/giảm nhanh: 1 = mặc định, 1.5 = tăng thêm 50%, 2 = gấp đôi")]
@@ -22,17 +22,17 @@ public class CeilingFanController : MonoBehaviour
 
     [Header("Âm thanh theo cấp độ (Loop)")]
     public AudioSource audioSource;
-    [Tooltip("Độ to âm thanh theo 5 cấp (0 = 0 volume)")]
-    public float[] volumeLevels = new float[] { 0f, 0.25f, 0.45f, 0.7f, 1.0f };
-    [Tooltip("Độ rít (Pitch) theo 5 cấp: càng cao tiếng rít càng nhanh")]
-    public float[] pitchLevels = new float[] { 0.5f, 0.8f, 1.0f, 1.25f, 1.5f };
+    [Tooltip("Độ to âm thanh theo 6 cấp (0 = 0 volume)")]
+    public float[] volumeLevels = new float[] { 0f, 0.2f, 0.38f, 0.58f, 0.8f, 1.0f };
+    [Tooltip("Độ rít (Pitch) theo 6 cấp: càng cao tiếng rít càng nhanh")]
+    public float[] pitchLevels = new float[] { 0.5f, 0.75f, 0.95f, 1.15f, 1.35f, 1.55f };
 
     [Header("Gia tốc")]
     public float acceleration = 180f;  // Tăng gia tốc để bắt tốc độ nhanh hơn
     public float deceleration = 100f;  // Gia tốc quán tính khi giảm số/tắt
 
     [Header("Trạng thái hiện tại")]
-    [Range(0, 4)]
+    [Range(0, 5)]
     public int currentLevel = 0;
 
     private float currentSpeed = 0f;

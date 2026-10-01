@@ -12,8 +12,11 @@ public class FanSwitchSlot : MonoBehaviour
     [Header("Cấu hình xoay núm")]
     [Tooltip("Trục xoay của mặt núm công tắc (thường là Z_Axis hoặc Vector3.forward)")]
     public Vector3 knobAxis = Vector3.forward;
-    [Tooltip("Góc xoay mỗi nấc (ví dụ 5 nấc chia 50 độ mỗi nấc)")]
-    public float anglePerStep = 50f;
+    [Tooltip("Góc xoay mỗi nấc (ví dụ 6 nấc có thể để 40 - 50 độ mỗi nấc)")]
+    public float anglePerStep = 45f;
+
+    [Tooltip("Tổng số nấc (6 nấc = 0 đến 5: nấc 0 tắt, 1->5 là các số quạt)")]
+    public int totalSteps = 6;
 
     [Header("Thời gian chuyển nấc khi giữ Grip")]
     [Tooltip("Cứ sau bao nhiêu giây thì nhảy sang nấc tiếp theo")]
@@ -24,7 +27,7 @@ public class FanSwitchSlot : MonoBehaviour
     public AudioClip clickSound;
 
     [Header("Cấp độ nấc hiện tại")]
-    [Range(0, 4)]
+    [Range(0, 5)]
     public int currentLevel = 0;
 
     private XRSimpleInteractable interactable;
@@ -86,8 +89,8 @@ public class FanSwitchSlot : MonoBehaviour
     {
         while (isHolding)
         {
-            // Nhảy nấc xoay vòng: 0 -> 1 -> 2 -> 3 -> 4 -> 0
-            currentLevel = (currentLevel + 1) % 5;
+            // Nhảy nấc xoay vòng: 0 -> 1 -> 2 -> 3 -> 4 -> 5 -> 0
+            currentLevel = (currentLevel + 1) % totalSteps;
 
             // Xoay góc núm vặn theo cấp
             transform.localRotation = initialRotation * Quaternion.Euler(knobAxis * (currentLevel * anglePerStep));
